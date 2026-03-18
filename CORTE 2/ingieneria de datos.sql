@@ -82,8 +82,19 @@ references automovil(idauto);
  describe automovil;
  ## Agregar un campo nuev
  ## alter table nombretablamodificar add nombreCampo tipocampo tamaño restrcicciones
- alter table compania add direccionCompania varchar (50) not null
+ alter table compania add direccionCompania varchar (50) not null;
  
  ##Modificar campo
  ## alter table nombretablamodificar modify nobreCampomodificar
  ## alter table nombretablamodificar change nombreCampoAnterior nombreCampomodificar
+ 
+ ## Cambiar nombre de una tabla 
+ rename table automovil to carros;
+ 
+ ## Eliminar un campo
+alter table seguros drop column valorasegurado;
+
+## Borrar una llave foránea
+show create table nombre_table_hijo;
+alter table nombre_tabla_hijo drop foreign key nombre_fk;
+
