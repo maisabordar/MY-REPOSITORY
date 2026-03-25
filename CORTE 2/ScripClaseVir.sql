@@ -134,16 +134,23 @@ DELETE
 
 */
 
+
 insert into clientes(nombreCliente,emailCliente,ciudad)
 values ('Sara Florian', 'sara@mail.com','Cali'), 
 ('Daniela Mejia','dani@mail.com','Guajira'),
 ('Ivanna Castro','nanna@mail.com','Valledupar'),
 ('Daniela Silva','danny@mail.com','Chía');
-insert into productos (nombreProducto,precioProducto,stockProducto,categoriaProducto)
-values ('AAudifonos',2500000,6,'Accesorios'), 
+select * from clientes;
+
+insert into productos(nombreProducto,precioProducto,stoProdT,categoriaProducto)
+values ('Audifonos',2500000,6,'Accesorios'), 
 ('Adaptador USB',80000,45,'Accesorios');
+select * from productos;
 
+insert into pedidos;
 
+select * from pedidos;
+ 
 update clientes
 set ciudad='Bogotá'
 where idCliente=3;
@@ -155,3 +162,44 @@ where categoriaProducto='Accesorios';
 SET SQL_SAFE_UPDATES = 1;
 SET SQL_SAFE_UPDATES = 0;
 
+use tiendaOnline;
+describe productos;
+alter table productos change stockProducto stoProdT int;
+
+## sentencias para consultas
+select * from productos;
+select nombreProducto, stoProdT from productos;
+## alias
+## no cambia el nombre de la tabla, solo de manera visual
+select nombreProducto as Nombre_producto, stoProdT as stock from productos;
+
+select nombreProducto, stoProdT from productos where idProducto=1;
+select nombreProducto as Nombre_Producto, stoProdT as stock from productos where stoProdT > 10;
+
+select nombreProducto as Nombre_Producto, stoProdT as stock
+from productos
+where stoProdT < 50 and nombreProducto= 'Laptop Pro';
+
+## select campos from nombre_tabla order by campo_a_ordenar formaOrden(ASC DESC)
+select nombreProducto as Nombre_Producto, stoProdT as stock
+from productos order by nombreProducto DESC;
+select nombreProducto as Nombre_Producto, stoProdT as stock
+from productos order by nombreProducto ASC;
+
+select nombreProdcuto as Nombre_Producto, stoProdT as stock from productos where stoProdT >= 25 or idProdcuto=1;
+
+## Between
+## rango >> and
+select * from productos;
+select nombreProducto as Nombre_Producto, precioProducto as precio
+ from productos where precioProducto between 500000 and 1000000 and stoProdT>3 order by precioProducto;
+
+## Like >> incian que terminen o qeu contengan caracteres
+## que incien
+select * from productos where nombreProducto like 'm%';
+## que contenga
+## not >> los que no contegan
+select * from productos where nombreProducto not like '%a%';
+## que termine
+## asc limit que limite en caso de tener muchos "producto"
+select * from productos where nombreProducto like '%os' order by precioProducto asc limit 2;
