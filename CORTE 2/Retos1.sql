@@ -10,25 +10,23 @@ stockProducto int not null,
 fechaCreacion datetime default current_timestamp);
 
 create table Clientes(
-idCliente int not null,
+idCliente int primary key auto_increment,
 nombreCliente varchar(100) not null,
-emailCliente varchar(120) not null,
+emailCliente varchar(120) unique,
 telefonoCliente varchar(10));
 
 create table Pedidos(
-idPedido int not null,
+idPedido int primary key auto_increment,
 idClienteFK int,
 fechaPedido datetime,
 totalPedido double not null);
 
 ## realciones entre pedidos y clientes
-alter table Clientes
-add constraint 
-foreign key
-references ;
+alter table Pedidos
+add constraint FKClientePedidos
+foreign key (idClienteFK)
+references Clientes(idCliente);
 
-alter table seguros
-add constraint FKSegurosAutomovil
-foreign key(idAutomovilFK)
-references automovil(idauto);
-alter table Producto 
+SHOW CREATE TABLE Clientes;
+SHOW CREATE TABLE Pedidos;
+
