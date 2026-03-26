@@ -203,3 +203,69 @@ select * from productos where nombreProducto not like '%a%';
 ## que termine
 ## asc limit que limite en caso de tener muchos "producto"
 select * from productos where nombreProducto like '%os' order by precioProducto asc limit 2;
+
+## Tarea
+## Carga de archivos 
+## clientes
+load data local infile '/Users/isabella/Downloads/clientes_real.csv'
+into table clientes
+fields terminated by ',' 
+lines terminated by '/n'
+ignore 1 rows;
+
+## productos
+load data local infile '/Users/isabella/Downloads/productos_real.csv '
+into table productos
+fields terminated by ',' 
+lines terminated by '\n'
+ignore 1 rows;
+
+## pedidos
+load data local infile '/Users/isabella/Downloads/pedidos_real.csv'
+into table pedidos
+fields terminated by ',' enclosed by ','
+lines terminated by '/n'
+ignore 1 rows;
+
+set foreing_key_checks=0;
+set foreing_key_checks=1;
+
+describe clientes;
+describe productos;
+describe pedidos;
+
+## Consulta
+/* Obtener los nombres de los clientes que hayan realizado pedidos de productos 
+pertenecientes a la categoría "Tecnologia" y cuyo precio sea menor al promedio 
+de precios de todos los productos, utilizando subconsultas. */
+
+select * from productos group by categoriaProducto;
+
+select categoriaProducto,
+count(*) as Cantidad,
+avg (precioProducto) as promedioMedio
+from productos
+group by categoriaProducto
+having avg (precioProducto)>50000;
+
+## no se esta cambiando el tipo de datos 
+select format (precioProducto,2,'es_CO') as precio
+from prodcutos;
+
+select * from clientes;
+select
+count(*) as Total,
+avg(precioProducto) as PromedioPreciom,
+max(precioProducto) as PrecioMaximo,
+min(precioProducto) as PrecioMinimo,
+sum(stoProT) as StockTotal
+from productos;
+
+describe clientes;
+
+select nombreCliente as noombre,
+upper(nombreCliente) AS NombreMayuscula,
+concat('nombre Cliente: ',nombreCliente, 'email cliente: ',emailCliente) as concatenar
+from clientes;
+
+
