@@ -268,4 +268,98 @@ upper(nombreCliente) AS NombreMayuscula,
 concat('nombre Cliente: ',nombreCliente, 'email cliente: ',emailCliente) as concatenar
 from clientes;
 
+## Subconsulta
+/* la consulta que mas se usa Select
+	ademas puedo hacer una consulta dentro de una consulta 
+    1. se lee la consulta exterior y luego la interior
+    2. puede tener clausulas
+    ejemplo: select col1, col2
+			 from tabla_Principal
+    (clusula)where columna operador
+			(subconsulta)select col1, col2
+						from tabla_Principal
+				(clusula)where columna operador;
+	3. tipos de subconsultas
+		Escalar (devuleve un unico valor de fila o columna)
+        de fila (devuelve una sola fila con varias columnas) Row()
+        de tabla (devuleve una tabla, varios registros y varios campos, varias filas y varias columnas) from ()
+        correlacional
+        
+*/
+
+create table empleados(
+idEmpleado int primary key auto_increment,
+nombreEmpleado varchar(100) unique,
+deptoId varchar(120) unique,
+salario int(10));
+ 
+ALTER TABLE empleados MODIFY idEmpleado INT NOT NULL;
+ALTER TABLE empleados DROP PRIMARY KEY;
+ALTER TABLE empleados ADD PRIMARY KEY (idEmpleado);
+ALTER TABLE empleados MODIFY deptoId VARCHAR(120);
+ALTER TABLE empleados DROP INDEX deptoId;
+SHOW CREATE TABLE empleados;
+
+create table producto(
+idProducto int primary key auto_increment,
+precioProducto decimal(10,2),
+categoria varchar(80));
+
+ALTER TABLE producto MODIFY precioProducto INT NOT NULL;
+
+create table departamento(
+idDepartamento int primary key auto_increment,
+nombreDepartamento varchar(80));
+
+ALTER TABLE departamento MODIFY idDepartamento INT NOT NULL;
+ALTER TABLE departamento DROP PRIMARY KEY;
+
+insert into empleados (idEmpleado, nombreEmpleado, deptoId, salario)
+values 
+('202938171', 'Juan Robles' , 'administracion' ,'10000000'), 
+('458490345','Henry Quintero', 'finanzas' ,'8000000'),
+('345867129', 'Constanza Villamarin' , 'servicio al cliente' ,'3000000'),
+('879456132','Maria Cardozo' ,'servicio al cliente' ,'3000000'),
+('84629473','Carmen Vargas' ,'facturacion' ,'4500000');
+select * from empleados;
+
+insert into producto (precioProducto, categoria)
+values
+('20000','tecnologia'),
+('3000000', 'tenologia'),
+('50000', 'alimentos'),
+('30000', 'aseo'),
+('100000', 'asep');
+select * from producto;
+
+insert into departamento (idDepartamento, nombreDepartamento)
+values
+('111', 'administracion'),
+('112', 'fianazas'),
+('113', 'servicio al cliente'),
+('114', 'facturacion');
+select * from departamento;
+
+select nombreEmpleado, salario
+from empleados
+where salario>
+	(select AVG(salario)
+     from empleados);
+
+## where_in
+select nombreEmpleado, salario
+from empleados
+where deptoId in
+	(select idDepartamento
+     from departamento
+     where nombreDepartamento in (('servicio al cliente'));
+
+## tabla derivada, temporal, no se crea en la base de datos
+select depto_id,prom_salario
+from
+	(select depto_id,AVG(salario)as prom_salario
+    from empleados
+    group by depto_id) as promedios
+where prom_salario > 3000000
+
 
