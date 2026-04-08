@@ -385,6 +385,14 @@ from   (select precioProducto,
 		STDDEV(precioProducto) as desv_precio
         from producto
         group by precioProducto);
-
-
+        
+select categoria, 
+MAX(precioProducto) as precio_maximo
+from producto
+where precioProducto > (
+    select AVG(precioProducto)
+    from producto
+)
+group by categoria
+order by precio_maximo;
 
