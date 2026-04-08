@@ -319,7 +319,7 @@ values
 ('202938171', 'Juan Robles' , 'administracion' ,'10000000'), 
 ('458490345','Henry Quintero', 'finanzas' ,'8000000'),
 ('345867129', 'Constanza Villamarin' , 'servicio al cliente' ,'3000000'),
-('879456132','Maria Cardozo' ,'servicio al cliente' ,'3000000'),
+('879456132','Maria Cardozo' ,'servicio al cliente' ,'3000000'), 
 ('84629473','Carmen Vargas' ,'facturacion' ,'4500000');
 select * from empleados;
 
@@ -338,7 +338,20 @@ values
 ('112', 'fianazas'),
 ('113', 'servicio al cliente'),
 ('114', 'facturacion');
+DELETE FROM departamento
+WHERE nombreDepartamento = 'fianazas';
+DELETE FROM departamento
+WHERE idDepartamento = 111
+LIMIT 1; ##solo borra un elemento, sino se borran todos los elmentos que se ecuentran asi
+DELETE FROM departamento
+WHERE idDepartamento = 113
+LIMIT 1;
+DELETE FROM departamento
+WHERE idDepartamento = 114;
+insert into departamento (idDepartamento, nombreDepartamento)
+values ('114', 'facturacion');
 select * from departamento;
+
 
 select nombreEmpleado, salario
 from empleados
@@ -352,14 +365,26 @@ from empleados
 where deptoId in
 	(select idDepartamento
      from departamento
-     where nombreDepartamento in (('servicio al cliente'));
+     where nombreDepartamento in ('servicio al cliente')); 
+     
+SELECT * FROM departamento;
+SELECT DISTINCT deptoId FROM empleados;
 
 ## tabla derivada, temporal, no se crea en la base de datos
-select depto_id,prom_salario
+select deptoId,prom_salario
 from
-	(select depto_id,AVG(salario)as prom_salario
+	(select deptoId,AVG(salario)as prom_salario
     from empleados
-    group by depto_id) as promedios
-where prom_salario > 3000000
+    group by deptoId) as promedios
+where prom_salario > 3000000;
+
+## desviacion 
+select precioProducto
+from   (select precioProducto,
+        AVG(precioProducto) as prom_precio,
+		STDDEV(precioProducto) as desv_precio
+        from producto
+        group by precioProducto);
+
 
 
