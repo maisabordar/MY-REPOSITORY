@@ -145,6 +145,7 @@ select * from clientes;
 insert into productos(nombreProducto,precioProducto,stoProdT,categoriaProducto)
 values ('Audifonos',2500000,6,'Accesorios'), 
 ('Adaptador USB',80000,45,'Accesorios');
+
 select * from productos;
 
 insert into pedidos;
@@ -314,6 +315,7 @@ nombreDepartamento varchar(80));
 ALTER TABLE departamento MODIFY idDepartamento INT NOT NULL;
 ALTER TABLE departamento DROP PRIMARY KEY;
 
+#Registrar 5 datos en empleados, 3 departamentos y 5 productos.
 insert into empleados (idEmpleado, nombreEmpleado, deptoId, salario)
 values 
 ('202938171', 'Juan Robles' , 'administracion' ,'10000000'), 
@@ -386,13 +388,89 @@ from   (select precioProducto,
         from producto
         group by precioProducto);
         
-select categoria, 
-MAX(precioProducto) as precio_maximo
-from producto
-where precioProducto > (
-    select AVG(precioProducto)
-    from producto
-)
-group by categoria
-order by precio_maximo;
+select nombreProducto, precioProducto as Producto, categoriaProducto
+from productos
+where precioProducto > (select AVG(precioProducto)from productos);
 
+select * from productos;
+
+create table pedidos(
+idPedido int auto_increment primary key,
+idCliente int not null,
+fechaPedido datetime default now(),
+estado enum('pediente','a timepo','entregado'),
+total decimal(12,2) default 0,
+foreign key (idEmpleado) references empleados(idempelado)
+);
+
+
+
+create table detalle_pedido (
+  idDetalle int primary key auto_increment,
+  idPedidoFK int not null,
+  idProductoFK int not null,
+  cantidad int not null,
+  precioUnitario decimal(10,2) not null,
+  subtotal decimal(10,2) generated always as (cantidad * precioUnitario) stored,
+
+  constraint FKDetallePedido
+    foreign key (idPedidoFK) references pedidos(idPedido)
+    on update cascade
+    on delete cascade,
+    
+    constraint FKDetalleProducto
+		foreign key (idProductoFK) references productos(idProducto)
+    );
+
+
+INSERT INTO pedidos (idEmpleado, estado)
+VALUES
+(1, 'pendiente'),
+(2, 'enviado');
+
+select * from pedidos;
+
+INSERT INTO detalle_pedido (idPedidoFK, idProductoFK, cantidad, precioUnitario)
+VALUES
+(1, 1, 1, 1200000),
+(1, 2, 2, 50000);
+
+INSERT INTO detalle_pedido (idPedidoFK, idProductoFK, cantidad, precioUnitario)
+VALUES
+(2, 4, 1, 3800000),
+(2, 5, 1, 100000);
+
+select * from detalle_pedido;
+
+##Tarea 
+
+select nombre_Producto, categoriaProducto, precioProducto from productos
+where precioProducto > 
+	(select avg(precioProducto) from productos)
+    order by (precioProducto) desc; 
+    
+select * from productos;
+    
+    select avg(precioProducto) from productos;
+    
+    ##pedido con nombre del empleado
+select 
+	p.idPedido,
+    e. nombreEmpleado
+from pedidos p 
+inner join empleados e on p.idEmpleado = e.idEmpleados;
+
+##Utilizando varios joins mostrar el detalle de los pedidos y el empleado asignado 
+select 
+	e.nombreEmpleado,
+    p.idPedido,
+    p.fecha_pedido,
+    p.estado,
+    pr.nombre_producto,
+    dp.cantidad,
+    dp.precioUnitario,
+    dp.subtotal
+from detalle_pedido dp
+inner join pedidos p on dp.idPedidoFK = p.idPedido
+inner join empleados e on p.idEmpleado = e.idEmpleados
+inner join productos pr on dp.idProductoFK = pr.idProducto;
