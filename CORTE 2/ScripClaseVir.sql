@@ -1,18 +1,18 @@
 create database if not exists tiendaOnline;
 use tiendaOnline;
 
-## sentencia: es un transacción
-## 0. es crear la estructura de la BD (modelo físico-diccionario de datos)
-## 1. DATOS PUROS O LIMPIOS (ETL)
-## 2. Manipulacion de datos (hacer registros, consultar registros, modificar registros, eliminar registros)
-## un logica transaccional (sentencias) (indicacion orden una petición transacción) MySQL SQL
+/* sentencia: es un transacción
+ 0. es crear la estructura de la BD (modelo físico-diccionario de datos)
+ 1. DATOS PUROS O LIMPIOS (ETL)
+ 2. Manipulacion de datos (hacer registros, consultar registros, modificar registros, eliminar registros)
+	un logica transaccional (sentencias) (indicacion orden una petición transacción) MySQL SQL
 
-## trabajar sobre el contenido
-## Transaccional: Crear-Insertar Agregar registros (insert)
-## Modificar actualizar (Update)
-## Consultas sobre la BD (Select)
-## Eliminar (Delete)
-
+	trabajar sobre el contenido
+	Transaccional: Crear-Insertar Agregar registros (insert)
+    Modificar actualizar (Update)
+    Consultas sobre la BD (Select)
+    Eliminar (Delete)
+*/
 create table clientes(
 idCliente int primary key auto_increment,
 nombreCliente varchar(100) not null,
@@ -63,13 +63,15 @@ select * from pedido;
 
 
 describe clientes;
-## insert into clientes(idCliente,nombreCliente,emailCliente,ciudad, creado_en) 
-## idCliente ' ' pq es autoincrementado, y como lo deje en valor va '' 
-## creado_en no se pone pq por default ya esta, toma la fecha de hoy 
-## insert into clientes(idCliente,nombreCliente,emailCliente,ciudad) values ('','Ana Garcia','ana@mail.com','Madrid');
+-- insert into clientes(idCliente,nombreCliente,emailCliente,ciudad, creado_en); 
+/* idCliente ' ' pq es autoincrementado, y como lo deje en valor va '' 
+	creado_en no se pone pq por default ya esta, toma la fecha de hoy 
+	insert into clientes(idCliente,nombreCliente,emailCliente,ciudad) values ('','Ana Garcia','ana@mail.com','Madrid');
+*/
+
 insert into clientes(nombreCliente,emailCliente,ciudad) values ('Pedro Perez','pedro@mail.com','Barcelona');
  select * from clientes;
-## varias inserciones
+-- varias inserciones
 describe productos;
 insert into productos (nombreProducto,precioProducto,stockProducto,categoriaProducto)
 values ('Laptop Pro',1200000,15,'Electrónica'), 
@@ -167,11 +169,11 @@ use tiendaOnline;
 describe productos;
 alter table productos change stockProducto stoProdT int;
 
-## sentencias para consultas
+-- sentencias para consultas
 select * from productos;
 select nombreProducto, stoProdT from productos;
-## alias
-## no cambia el nombre de la tabla, solo de manera visual
+-- alias
+-- no cambia el nombre de la tabla, solo de manera visual
 select nombreProducto as Nombre_producto, stoProdT as stock from productos;
 
 select nombreProducto, stoProdT from productos where idProducto=1;
@@ -181,7 +183,7 @@ select nombreProducto as Nombre_Producto, stoProdT as stock
 from productos
 where stoProdT < 50 and nombreProducto= 'Laptop Pro';
 
-## select campos from nombre_tabla order by campo_a_ordenar formaOrden(ASC DESC)
+-- select campos from nombre_tabla order by campo_a_ordenar formaOrden(ASC DESC)
 select nombreProducto as Nombre_Producto, stoProdT as stock
 from productos order by nombreProducto DESC;
 select nombreProducto as Nombre_Producto, stoProdT as stock
@@ -189,39 +191,39 @@ from productos order by nombreProducto ASC;
 
 select nombreProdcuto as Nombre_Producto, stoProdT as stock from productos where stoProdT >= 25 or idProdcuto=1;
 
-## Between
-## rango >> and
+-- Between
+-- rango >> and
 select * from productos;
 select nombreProducto as Nombre_Producto, precioProducto as precio
  from productos where precioProducto between 500000 and 1000000 and stoProdT>3 order by precioProducto;
 
-## Like >> incian que terminen o qeu contengan caracteres
-## que incien
+-- Like >> incian que terminen o qeu contengan caracteres
+-- que incien
 select * from productos where nombreProducto like 'm%';
-## que contenga
-## not >> los que no contegan
+-- que contenga
+-- not >> los que no contegan
 select * from productos where nombreProducto not like '%a%';
-## que termine
-## asc limit que limite en caso de tener muchos "producto"
+-- que termine
+-- asc limit que limite en caso de tener muchos "producto"
 select * from productos where nombreProducto like '%os' order by precioProducto asc limit 2;
 
-## Tarea
-## Carga de archivos 
-## clientes
+-- Tarea
+-- Carga de archivos 
+-- clientes
 load data local infile '/Users/isabella/Downloads/clientes_real.csv'
 into table clientes
 fields terminated by ',' 
 lines terminated by '/n'
 ignore 1 rows;
 
-## productos
+-- productos
 load data local infile '/Users/isabella/Downloads/productos_real.csv '
 into table productos
 fields terminated by ',' 
 lines terminated by '\n'
 ignore 1 rows;
 
-## pedidos
+-- pedidos
 load data local infile '/Users/isabella/Downloads/pedidos_real.csv'
 into table pedidos
 fields terminated by ',' enclosed by ','
@@ -361,7 +363,7 @@ where salario>
 	(select AVG(salario)
      from empleados);
 
-## where_in
+-- where_in
 select nombreEmpleado, salario
 from empleados
 where deptoId in
@@ -372,7 +374,7 @@ where deptoId in
 SELECT * FROM departamento;
 SELECT DISTINCT deptoId FROM empleados;
 
-## tabla derivada, temporal, no se crea en la base de datos
+-- tabla derivada, temporal, no se crea en la base de datos
 select deptoId,prom_salario
 from
 	(select deptoId,AVG(salario)as prom_salario
@@ -380,30 +382,30 @@ from
     group by deptoId) as promedios
 where prom_salario > 3000000;
 
-## desviacion 
+-- desviacion 
 select precioProducto
 from   (select precioProducto,
         AVG(precioProducto) as prom_precio,
 		STDDEV(precioProducto) as desv_precio
         from producto
         group by precioProducto);
-        
+
+-- Tarea
 select nombreProducto, precioProducto as Producto, categoriaProducto
 from productos
 where precioProducto > (select AVG(precioProducto)from productos);
 
 select * from productos;
 
+
 create table pedidos(
 idPedido int auto_increment primary key,
-idCliente int not null,
+idEmpleado int not null,
 fechaPedido datetime default now(),
 estado enum('pediente','a timepo','entregado'),
 total decimal(12,2) default 0,
 foreign key (idEmpleado) references empleados(idempelado)
 );
-
-
 
 create table detalle_pedido (
   idDetalle int primary key auto_increment,
@@ -421,7 +423,6 @@ create table detalle_pedido (
     constraint FKDetalleProducto
 		foreign key (idProductoFK) references productos(idProducto)
     );
-
 
 INSERT INTO pedidos (idEmpleado, estado)
 VALUES
@@ -441,19 +442,8 @@ VALUES
 (2, 5, 1, 100000);
 
 select * from detalle_pedido;
-
-##Tarea 
-
-select nombre_Producto, categoriaProducto, precioProducto from productos
-where precioProducto > 
-	(select avg(precioProducto) from productos)
-    order by (precioProducto) desc; 
     
-select * from productos;
-    
-    select avg(precioProducto) from productos;
-    
-    ##pedido con nombre del empleado
+##pedido con nombre del empleado
 select 
 	p.idPedido,
     e. nombreEmpleado
@@ -474,3 +464,139 @@ from detalle_pedido dp
 inner join pedidos p on dp.idPedidoFK = p.idPedido
 inner join empleados e on p.idEmpleado = e.idEmpleados
 inner join productos pr on dp.idProductoFK = pr.idProducto;
+
+## procedimiento almacenados, funciones, vistas
+/* PROCEDIMIENTO ALMACENADOS SOTRES PROCEDURES
+son bloques de codigo de SQL que tiene un nombre que se almacenan en el servidor y se 
+ejecutan con invocacion o llamdos CALL registro o de consulta de modificacion o actualizacion de eliminacion
+
+- con parametros entrada (in) y salida (out) ambos (inout)
+sintaxis
+(crear procedimiento)
+DELIMITER//
+CREATE PROCEDURE nombreProcedimiento(
+	IN parametro_entrada tipo
+    OUT parametro_salida tipo
+    INOUT parametro_entradasalida tipo
+)
+se inicializa ->
+BEGIN
+variables locales -> 
+DECLARE variable tipo DEFAULT valor;
+
+curepo del procedimiento -> 
+(sentensis sql o control de flujo)
+END//
+
+DELIMITER;
+invoca procedimiento ->
+CALL nombreProcedimiento(valor_entrada, @variable_salida, @variable_entrada_salida (Entrada → Proceso → Salida)
+
+*/
+
+DELIMITER //
+create procedure crearPedido(
+		in p_id_empleado int,
+        in p_id_empleado int,
+        in p_cantidad int,
+        out p_id_pedido int,
+        out p_mensaje varchar(200)
+) 
+BEGIN
+	declare v_stock int;
+    declare v_precio decimal(10.2);
+    declare v_total decimal(10.2);
+    ## mensaje por si hay algun error
+		declare exit handler for sqlexception
+        BEGIN
+			rollback;
+            set p_mensaje='error: transaccion no valida';
+            set p_id_pedido=1;
+		end;
+        ## validar disponibilidad de stock
+        select stock, precio into v_stock, v_precio
+        from prodcutos where id_producto=p_id_producto;
+        if v_stock<cantidad then
+			set p_mensaje=concat('Stock insuficiente. Disponible:', v_stock);
+			set p_id_pedid=0;
+		else 
+			START TRANSACTION;
+			set v_total=v_precio*p_cantidad;
+			## crear pedido ->
+			insert into pedido(id_empleado,total)values(p_id_empleado,v_total);
+			set p_id_pedido=last_insert_id();
+			## insertar detalle
+			insert into detalle_pedido(id_pedido, id_producto, cantidad, precio_unit)
+			values(p_id_pedido,p_id_producto,p_cantidad,v_precio);
+			## descontar del stock
+			update producto
+			set stock = stock - p_cantidad
+			where id_producto=p_id_producto;
+        
+			commit;
+			## registrar un mensaje de la base de datos
+            set p_mensaje=concat('pedido #',id_pedido,'creado correctamente');
+		end if;
+        
+END//
+DELIMITER ;
+
+## prueba de ejecucion 
+CALL crar_pedido(1, 2, 3, @pedido_id, @msg);
+select * from clientes;
+
+## invocar el procedimiento
+CALL sp_crear_pedido(1, 3, 10, @pedido_id, @msg);
+
+select @pedido_id as id_pedido, @msg as mensaje;
+
+select * from pedido;
+select * from detalle_producto;
+
+-- ACTIVIDAD
+
+DELIMITER //
+create procedure cancelarPedido(
+		in p_id_empleado int,
+        in p_id_pedido int,
+        out p_mensaje varchar(200)
+) 
+BEGIN
+	declare v_estado varchar(200);
+    declare v_id_cliente int;
+    declare v_num_productos int;
+ 
+		declare exit handler for sqlexception
+        BEGIN
+			rollback;
+            set p_mensaje='error: proceso invalido';
+		end;
+        ## validar disponibilidad de stock
+        select stock, precio into v_stock, v_precio
+        from prodcutos where id_producto=p_id_producto;
+        if v_stock<cantidad then
+			set p_mensaje=concat('Stock insuficiente. Disponible:', v_stock);
+			set p_id_pedid=0;
+		else 
+			START TRANSACTION;
+			set v_total=v_precio*p_cantidad;
+			## crear pedido ->
+			insert into pedido(id_empleado,total)values(p_id_empleado,v_total);
+			set p_id_pedido=last_insert_id();
+			## insertar detalle
+			insert into detalle_pedido(id_pedido, id_producto, cantidad, precio_unit)
+			values(p_id_pedido,p_id_producto,p_cantidad,v_precio);
+			## descontar del stock
+			update producto
+			set stock = stock - p_cantidad
+			where id_producto=p_id_producto;
+        
+			commit;
+			## registrar un mensaje de la base de datos
+            set p_mensaje=concat('pedido #',id_pedido,'creado correctamente');
+		end if;
+        
+END//
+DELIMITER ;
+
+
