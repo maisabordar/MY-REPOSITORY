@@ -1,0 +1,189 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2869
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww12600\viewh10820\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 // 1. Cantidad de empleados agrupados por g\'e9nero, ordenados de menor a mayor\
+db.employee.aggregate([\
+  \{\
+    $group: \{\
+      _id: "$gender",\
+      "cantidad empleados": \{ $sum: 1 \}\
+    \}\
+  \},\
+  \{\
+    $sort: \{ "cantidad empleados": 1 \}\
+  \}\
+])\
+\
+// 2. Auxiliares de est\'e9tica por g\'e9nero, ordenados ascendente por g\'e9nero\
+db.employee.aggregate([\
+  \{\
+    $match: \{ jobtitle: "Auxiliar de est\'e9tica" \}\
+  \},\
+  \{\
+    $group: \{\
+      _id: "$gender",\
+      "cantidad empleados": \{ $sum: 1 \}\
+    \}\
+  \},\
+  \{\
+    $sort: \{ _id: 1 \}\
+  \}\
+])\
+\
+// 3. Total de n\'f3mina por cargo, ordenado alfab\'e9ticamente por cargo\
+db.employee.aggregate([\
+  \{\
+    $group: \{\
+      _id: "$jobtitle",\
+      "total nomina": \{ $sum: "$salary" \}\
+    \}\
+  \},\
+  \{\
+    $sort: \{ _id: 1 \}\
+  \}\
+])\
+\
+// 4. Total de n\'f3mina por cargo, solo los que superen 5 millones\
+db.employee.aggregate([\
+  \{\
+    $group: \{\
+      _id: "$jobtitle",\
+      "total nomina": \{ $sum: "$salary" \}\
+    \}\
+  \},\
+  \{\
+    $match: \{ "total nomina": \{ $gt: 5000000 \} \}\
+  \}\
+])\
+\
+// 1. Total de minutos y kil\'f3metros por usuario (concatenando nombre y apellido)\
+db.corredores.aggregate([\
+  \{\
+    $group: \{\
+      _id: \{ $concat: ["$nombre", " ", "$apellido"] \},\
+      "total minutos": \{ $sum: "$minutos" \},\
+      "total kilometros": \{ $sum: "$kilometros" \}\
+    \}\
+  \}\
+])\
+\
+// 2. Promedio de minutos mensuales por corredor\
+db.corredores.aggregate([\
+  \{\
+    $group: \{\
+      _id: \{ corredor: \{ $concat: ["$nombre", " ", "$apellido"] \}, mes: "$mes" \},\
+      "minutos en el mes": \{ $sum: "$minutos" \}\
+    \}\
+  \},\
+  \{\
+    $group: \{\
+      _id: "$_id.corredor",\
+      "promedio minutos mensuales": \{ $avg: "$minutos en el mes" \}\
+    \}\
+  \}\
+])\
+\
+// 3. Promedio de kil\'f3metros mensuales por corredor, solo si promedio > 5\
+db.corredores.aggregate([\
+  \{\
+    $group: \{\
+      _id: \{ corredor: \{ $concat: ["$nombre", " ", "$apellido"] \}, mes: "$mes" \},\
+      "km en el mes": \{ $sum: "$kilometros" \}\
+    \}\
+  \},\
+  \{\
+    $group: \{\
+      _id: "$_id.corredor",\
+      "promedio km mensuales": \{ $avg: "$km en el mes" \}\
+    \}\
+  \},\
+  \{\
+    $match: \{ "promedio km mensuales": \{ $gt: 5 \} \}\
+  \}\
+])\
+\
+// 4. Total de kil\'f3metros agrupados por corredor y mes, ordenados por mes\
+db.corredores.aggregate([\
+  \{\
+    $group: \{\
+      _id: \{ corredor: \{ $concat: ["$nombre", " ", "$apellido"] \}, mes: "$mes" \},\
+      "total kilometros": \{ $sum: "$kilometros" \}\
+    \}\
+  \},\
+  \{\
+    $sort: \{ "_id.mes": 1 \}\
+  \}\
+])\
+\
+// 5. Distancias recorridas por corredor usando $addToSet\
+db.corredores.aggregate([\
+  \{\
+    $group: \{\
+      _id: \{ $concat: ["$nombre", " ", "$apellido"] \},\
+      "distancias": \{ $addToSet: "$kilometros" \}\
+    \}\
+  \}\
+])\
+\
+// 6. Cu\'e1ntos corredores est\'e1n interesados en cada afici\'f3n usando $unwind\
+db.corredores.aggregate([\
+  \{\
+    $unwind: "$aficiones"\
+  \},\
+  \{\
+    $group: \{\
+      _id: "$aficiones",\
+      "total corredores": \{ $sum: 1 \}\
+    \}\
+  \}\
+])\
+\
+// 7a. Corredor con m\'e1s kil\'f3metros totales\
+db.corredores.aggregate([\
+  \{\
+    $group: \{\
+      _id: \{ $concat: ["$nombre", " ", "$apellido"] \},\
+      "total kilometros": \{ $sum: "$kilometros" \}\
+    \}\
+  \},\
+  \{\
+    $sort: \{ "total kilometros": -1 \}\
+  \},\
+  \{\
+    $limit: 1\
+  \}\
+])\
+\
+// 7b. Mes con mayor actividad (m\'e1s minutos totales)\
+db.corredores.aggregate([\
+  \{\
+    $group: \{\
+      _id: "$mes",\
+      "total minutos": \{ $sum: "$minutos" \}\
+    \}\
+  \},\
+  \{\
+    $sort: \{ "total minutos": -1 \}\
+  \},\
+  \{\
+    $limit: 3\
+  \}\
+])\
+\
+// 7c. M\'e1ximo y m\'ednimo de kil\'f3metros registrados por corredor\
+db.corredores.aggregate([\
+  \{\
+    $group: \{\
+      _id: \{ $concat: ["$nombre", " ", "$apellido"] \},\
+      "max km": \{ $max: "$kilometros" \},\
+      "min km": \{ $min: "$kilometros" \}\
+    \}\
+  \},\
+  \{\
+    $sort: \{ "max km": -1 \}\
+  \}\
+])}
