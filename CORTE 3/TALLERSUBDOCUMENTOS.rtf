@@ -1,0 +1,221 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2869
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fswiss\fcharset0 Arial-BoldMT;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;\red32\green36\blue45;
+\red110\green5\blue2;\red167\green0\blue20;\red16\green19\blue24;\red15\green112\blue1;\red14\green110\blue109;
+\red32\green36\blue45;\red134\green205\blue77;}
+{\*\expandedcolortbl;;\csgray\c0;\cssrgb\c0\c0\c0;\cssrgb\c16863\c18824\c23137;
+\cssrgb\c51239\c6511\c0;\cssrgb\c72157\c3922\c9412;\cssrgb\c7843\c9412\c12157;\cssrgb\c0\c50196\c0;\cssrgb\c0\c50196\c50196;
+\cssrgb\c16863\c18824\c23137;\cssrgb\c58755\c82661\c37297;}
+\margl1440\margr1440\vieww22000\viewh14840\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 	TALLER SUBDOCUMENTOS\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\b0 \cf2 Actividad\
+1.
+\f2\b  
+\f1\b0 Agregar a la base de datos 5 bandas (datos libres)\
+2. Agregar a cada banda m\'ednimo 2 albums musicales de su discograf\'eda (subdocumento)\
+3. Agregar a cada \'e1lbum m\'ednimo 5 canciones (subdocumento songs)\
+4. Mostrar cada banda completa con su discograf\'eda relacionada\
+5. Borrar un campo del subdocumento albums (a elecci\'f3n)\
+6. Borrar todo el subdocumento songs de uno de los albums de una banda (a elecci\'f3n)\
+\
+\cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+db.bands.insert(\cf3 \strokec4 [\
+			 \cf5  \{\strokec3  \cf3 \strokec6 nombre\strokec7 :\strokec3  \strokec8 "Radiohead"\strokec4 ,\strokec3  \
+			    \strokec6 albums\strokec7 :\strokec3  \strokec4 [\strokec3  \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "OK Computer"\strokec4 ,\strokec3  \
+					     \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 1997\strokec3  \strokec4 , \
+					     \cf3 \outl0\strokewidth0 canciones: [\
+								\{ titulo: "Airbag" \},\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3           				      			\{ titulo: "Paranoid Android" \},\
+          				      			\{ titulo: "Subterranean Homesick Alien" \},\
+          				     			\{ titulo: "Exit Music (For a Film)" \},\
+          				      			\{ titulo: "Karma Police" \}]\},\cf3 \outl0\strokewidth0 \strokec3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 					    \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Kid A"\strokec4 ,\strokec3  \
+					      \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2000\strokec3 , \
+					      \cf3 \outl0\strokewidth0 canciones: [\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3         								 \{ titulo: "Everything in Its Right Place" \},\
+          							 \{ titulo: "Kid A" \},\
+          							 \{ titulo: "The National Anthem" \},\
+          							 \{ titulo: "How to Disappear Completely" \},\
+          							 \{ titulo: "Idioteque" \}]\},\cf3 \outl0\strokewidth0 \strokec3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 					   \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "In Rainbows"\strokec4 ,\strokec3  \
+					     \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2007\strokec3 ,\
+					     \cf3 \outl0\strokewidth0 canciones: [\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3           							\{ titulo: "15 Step" \},\
+          							\{ titulo: "Bodysnatchers" \},\
+          							\{ titulo: "Nude" \},\
+          							\{ titulo: "Weird Fishes/Arpeggi" \},\
+          							\{ titulo: "All I Need" \}]\}\cf5 \}\cf3 ,\cf3 \outl0\strokewidth0 \strokec3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 			  \cf11 \strokec4 \{\cf3 \strokec3  \strokec6 nombre\strokec7 :\strokec3  \strokec8 "Arctic Monkeys"\strokec4 ,\strokec3  \
+			    \strokec6 albums\strokec7 :\strokec3  \strokec4 [\strokec3  \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Whatever People Say I Am, That's What I'm Not"\strokec4 ,\strokec3  \
+					     \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2006\strokec3  \
+					     \cf3 \outl0\strokewidth0 canciones: [\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3           							\{ titulo: "The View from the Afternoon" \},\
+          							\{ titulo: "I Bet You Look Good on the Dancefloor" \},\
+          							\{ titulo: "Fake Tales of San Francisco" \},\
+          							\{ titulo: "Dancing Shoes" \},\
+          							\{ titulo: "R U Mine?" \}]\cf3 \outl0\strokewidth0 \strokec4 \},\strokec3  \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 					   \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "AM"\strokec4 ,\strokec3  \
+					     \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2013\strokec3  \strokec4 ,\strokec3  \
+					     \cf3 \outl0\strokewidth0 canciones: [\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3           							\{ titulo: "Do I Wanna Know?" \},\
+          							\{ titulo: "R U Mine?" \},\
+          							\{ titulo: "One for the Road" \},\
+          							\{ titulo: "Arabella" \},\
+          							\{ titulo: "Why'd You Only Call Me When You're High?" \}]\},\cf3 \outl0\strokewidth0 \strokec3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 					   \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Tranquility Base Hotel + Casino"\strokec4 ,\strokec3  					     \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2018\strokec3 ,\
+					     \cf3 \outl0\strokewidth0 canciones: [\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3           							\{ titulo: "Star Treatment" \},\
+          							\{ titulo: "One Point Perspective" \},\
+          							\{ titulo: "American Sports" \},\
+          							\{ titulo: "Tranquility Base Hotel + Casino" \},\
+          							\{ titulo: "Golden Trunks" \}]\}\cf11 \}\cf3 ,\cf3 \outl0\strokewidth0 \strokec3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 			  \strokec4 \{\strokec3  \strokec6 nombre\strokec7 :\strokec8 "Tame Impala"\strokec4 ,\strokec3  \
+			    \strokec6 albums\strokec7 :\strokec3  \strokec4 [\strokec3  \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Innerspeaker"\strokec4 ,\strokec3  \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2010\strokec3  \strokec4 \},\strokec3  \
+                                             \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Lonerism"\strokec4 ,\strokec3  \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2012\strokec3  \strokec4 \},\strokec3  \
+                                             \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Currents"\strokec4 ,\strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2015\strokec3  \strokec4 \}\strokec3  \strokec4 ]\strokec3  \strokec4 \},\strokec3  \
+			  \strokec4 \{\strokec3  \strokec6 nombre\strokec7 :\strokec3  \strokec8 "The Strokes"\strokec4 ,\strokec3  \
+			    \strokec6 albums\strokec7 :\strokec3  \strokec4 [\strokec3  \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Is This It"\strokec4 ,\strokec3  \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2001\strokec3  \strokec4 \},\strokec3  \
+                                             \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Room on Fire"\strokec4 ,\strokec3  \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2003\strokec4 \},\strokec3  \
+                                             \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "The New Abnormal"\strokec4 ,\strokec3  \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2020\strokec3  \strokec4 \}\strokec3  \strokec4 ]\strokec3  \strokec4 \},\strokec3  			  \strokec4 \{\strokec3  \strokec6 nombre\strokec7 :\strokec3  \strokec8 "Portishead"\strokec4 ,\strokec3  \
+ 			    \strokec6 albums\strokec7 :\strokec3  \strokec4 [\strokec3  \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Dummy"\strokec4 ,\strokec3  \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 1994\strokec3  \strokec4 \},\strokec3  \
+					   \strokec4 \{\strokec6 titulo\strokec7 :\strokec3  \strokec8 "Portishead"\strokec4 ,\strokec3  \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 1997\strokec3  \strokec4 \},\strokec3  \
+					   \strokec4 \{\strokec3  \strokec6 titulo\strokec7 :\strokec3  \strokec8 "Third"\strokec4 ,\strokec3  \strokec6 a\'f1o\strokec7 :\strokec3  \strokec9 2008\strokec3  \strokec4 \}\strokec3  \strokec4 ]\strokec3  \strokec4 \}\strokec3  \strokec4 ]\
+\
+\
+   \
+\
+  \{\
+    nombre: "Tame Impala",\
+    albums: [\
+      \{\
+        titulo: "Innerspeaker",\
+        a\'f1o: 2010,\
+        canciones: [\
+          \{ titulo: "It Is Not Meant to Be" \},\
+          \{ titulo: "Desire Be Desire Go" \},\
+          \{ titulo: "Alter Ego" \},\
+          \{ titulo: "Lucidity" \},\
+          \{ titulo: "Why Won't You Make Up Your Mind?" \}\
+        ]\
+      \},\
+      \{\
+        titulo: "Lonerism",\
+        a\'f1o: 2012,\
+        canciones: [\
+          \{ titulo: "Be Above It" \},\
+          \{ titulo: "Endors Toi" \},\
+          \{ titulo: "Apocalypse Dreams" \},\
+          \{ titulo: "Mind Mischief" \},\
+          \{ titulo: "Feels Like We Only Go Backwards" \}\
+        ]\
+      \},\
+      \{\
+        titulo: "Currents",\
+        a\'f1o: 2015,\
+        canciones: [\
+          \{ titulo: "Let It Happen" \},\
+          \{ titulo: "The Moment" \},\
+          \{ titulo: "Yes I'm Changing" \},\
+          \{ titulo: "Eventually" \},\
+          \{ titulo: "The Less I Know the Better" \}\
+        ]\
+      \}\
+    ]\
+  \},\
+  \{\
+    nombre: "The Strokes",\
+    albums: [\
+      \{\
+        titulo: "Is This It",\
+        a\'f1o: 2001,\
+        canciones: [\
+          \{ titulo: "Is This It" \},\
+          \{ titulo: "The Modern Age" \},\
+          \{ titulo: "Soma" \},\
+          \{ titulo: "Barely Legal" \},\
+          \{ titulo: "Last Nite" \}\
+        ]\
+      \},\
+      \{\
+        titulo: "Room on Fire",\
+        a\'f1o: 2003,\
+        canciones: [\
+          \{ titulo: "What Ever Happened?" \},\
+          \{ titulo: "Reptilia" \},\
+          \{ titulo: "Automatic Stop" \},\
+          \{ titulo: "12:51" \},\
+          \{ titulo: "The Way It Is" \}\
+        ]\
+      \},\
+      \{\
+        titulo: "The New Abnormal",\
+        a\'f1o: 2020,\
+        canciones: [\
+          \{ titulo: "The Adults Are Talking" \},\
+          \{ titulo: "Selfless" \},\
+          \{ titulo: "Brooklyn Bridge to Chorus" \},\
+          \{ titulo: "Bad Decisions" \},\
+          \{ titulo: "At the Door" \}\
+        ]\
+      \}\
+    ]\
+  \},\
+  \{\
+    nombre: "Portishead",\
+    albums: [\
+      \{\
+        titulo: "Dummy",\
+        a\'f1o: 1994,\
+        canciones: [\
+          \{ titulo: "Mysterons" \},\
+          \{ titulo: "Sour Times" \},\
+          \{ titulo: "Strangers" \},\
+          \{ titulo: "It Could Be Sweet" \},\
+          \{ titulo: "Glory Box" \}\
+        ]\
+      \},\
+      \{\
+        titulo: "Portishead",\
+        a\'f1o: 1997,\
+        canciones: [\
+          \{ titulo: "Cowboys" \},\
+          \{ titulo: "All Mine" \},\
+          \{ titulo: "Undenied" \},\
+          \{ titulo: "Half Day Closing" \},\
+          \{ titulo: "Over" \}\
+        ]\
+      \},\
+      \{\
+        titulo: "Third",\
+        a\'f1o: 2008,\
+        canciones: [\
+          \{ titulo: "Silence" \},\
+          \{ titulo: "Hunter" \},\
+          \{ titulo: "Nylon Smile" \},\
+          \{ titulo: "The Rip" \},\
+          \{ titulo: "Plastic" \}\
+        ]\
+      \}\
+    ]\
+  \}\
+])}
